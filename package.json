@@ -1,0 +1,21 @@
+{
+  "name": "tslex",
+  "version": "0.1.0",
+  "description": "Input Lexer emitting the tokens",
+  "main": "src/index.js",
+  "scripts": {
+    "doc": "typedoc --out docs src",
+    "test": "jest"
+  },
+  "author": "Krzysztof Piasecki <krzysiekpiasecki@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "25.2.3",
+    "jest": "26.0.1",
+    "prettier": "2.0.5",
+    "ts-jest": "26.0.0",
+    "typedoc": "0.17.7",
+    "typescript": "3.9.3"
+  },
+  "dependencies": {}
+}
