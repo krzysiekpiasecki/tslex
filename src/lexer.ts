@@ -56,7 +56,7 @@ type Tokenizer = (lexer: Lexer) => Tokenizer | void | null;
 /**
  * Represent a single token, which consists of the token type, value and start position.
  *
- * Tokens are emitted by {link Lexer#emit} method from {@link Tokenizer} functions.
+ * Tokens are emitted by {@link Lexer#emit} method from {@link Tokenizer} functions.
  */
 interface Token {
   /** @param type Token type */
