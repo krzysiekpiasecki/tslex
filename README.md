@@ -4,6 +4,8 @@ Simple lexer for analyzing the input and emitting the tokens.
 
 ## Example of usage
 
+The full API is available [here](https://krzysiekpiasecki.github.io/tslex/index.html)
+
 ```ts
 import {EOF, newLexer, Tokenizer} from 'lexer'
 
