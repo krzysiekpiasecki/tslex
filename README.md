@@ -14,27 +14,30 @@ const enum TokenTypes {
 };
 
 const dotTokenizer: Tokenizer = l => {
- if (l.accept('.') === false) {
+    if (l.accept('.') === false) {
+
     l.emit(TokenTypes.ERROR);
     return null;
- }
- l.emit(TokenTypes.DIGIT);
- if (l.peek() === EOF) {
-     l.emit(TokenTypes.ERROR) {
-         return null;
-     }
- }
- return digitTokenizer;
+    }
+
+    l.emit(TokenTypes.DIGIT);
+
+    if (l.peek() === EOF) {
+        l.emit(TokenTypes.ERROR) {
+            return null;
+        }
+    }
+    return digitTokenizer;
 }
 
 const digitTokenizer: Tokenizer = l => {
- l.acceptRun("0123456789");
- l.emit(DIGIT);
- return dotTokenizer;
+    l.acceptRun("0123456789");
+    l.emit(DIGIT);
+    return dotTokenizer;
 };
 
 
-const tokens = newLexer().lex("12.15.134);
+const tokens = newLexer().lex("12.15.134, digitTokenizer);
 ```
 
 ## Links
