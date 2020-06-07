@@ -4,7 +4,7 @@
   "description": "Input Lexer emitting the tokens",
   "main": "src/index.js",
   "scripts": {
-    "doc": "typedoc --out docs src",
+    "doc": "typedoc && touch ./docs/.nojekyll",
     "test": "jest"
   },
   "author": "Krzysztof Piasecki <krzysiekpiasecki@gmail.com>",
