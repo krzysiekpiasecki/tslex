@@ -1,19 +1,16 @@
+import { Lexer } from "lexer";
 /**
- * Lexer analyze the input string and emits tokens
+ * Lexer analyzes the input string and emits tokens
  *
- * @TODO Implement emitError function
- * @TODO Implement generator function
- * @TODO Implements Emiter type
- *
- * #### Simple Example
+ * #### Example
  *
  * ```ts
- * import {EOF, newLexer, Tokenizer} from 'lexer'
+ * import { EOF, newLexer, Tokenizer, Tokens } from 'lexer'
  *
- * const enum TokenTypes {
- *  ERROR,
- *  DIGIT,
- *  DOT
+ * const TokenTypes {
+ *    ...Tokens, // ERROR, EOF
+ *    DOT: 4,
+ *    DIGITS: 8
  * };
  *
  * const dotTokenizer: Tokenizer = l => {
@@ -21,23 +18,38 @@
  *     l.emit(TokenTypes.ERROR);
  *     return null;
  *  }
- *  l.emit(TokenTypes.DIGIT);
- *  if (l.peek() === EOF) {
- *      l.emit(TokenTypes.ERROR) {
- *          return null;
- *      }
+ *
+ *  l.emit(TokenTypes.DOT);
+ *
+ *  if (l.peek() === EOF) { // after dot must be another digit
+ *      l.emit(TokenTypes.ERROR);
+ *      return null;
  *  }
+ *
  *  return digitTokenizer;
  * }
  *
- * const digitTokenizer: Tokenizer = l => {
- *  l.acceptRun("0123456789");
- *  l.emit(DIGIT);
- *  return dotTokenizer;
+ * const digitsTokenizer: Tokenizer = l => {
+ *     l.acceptRun("0123456789");
+ *
+ *     l.emit(TokenTypes.DIGITS);
+ *
+ *     if (l.peek() === EOF) {
+ *         return null;
+ *     }
+ *
+ *     return dotTokenizer;
  * };
  *
- * const tokens = newLexer().lex("12.15.134);
+ * const tokens = newLexer().lex("12.15.134", digitsTokenizer); // 12 -> . -> 15 -> . -> 134
  * ```
+ *
+ * @TODO Implement emitError function
+ * @TODO Implement? generator function
+ * @TODO Implement? Emiter type
+ * @TODO Change method {@link Lexer#lex} to Lexer#run
+ * @TODO Implement? peekToken method
+ * @TODO Remove class instance and use object literal in {@link newLexer}
  */
 
 /**
@@ -247,6 +259,6 @@ const newLexer = (): Lexer =>
 /**
  * Global instance of the {@link Lexer}. Instead of global Lexer you can use {@link newLexer} method to create brand-new instance.
  */
-const Lex: Lexer = newLexer();
+const Lexing: Lexer = newLexer();
 
-export { EOF, Lex, Lexer, newLexer, Token, Tokenizer };
+export { EOF, Lexing, Lexer, newLexer, Token, Tokenizer };
