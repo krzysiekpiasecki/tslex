@@ -46,6 +46,36 @@
 const EOF = "";
 
 /**
+ * TokenType defines type of the token
+ */
+export type TokenType = number;
+
+/**
+ * Token type enumaration.
+ *
+ * Currently enumerations can't be extended. Therefore the client should
+ * use this object enumeration and extend it to provide custom toke types.
+ *
+ * Example:
+ * ```ts
+ * import { Tokens } from 'lexer'
+ *
+ * const CustomTokens = {
+ *     ...Tokens,
+ *     DOT: 4,
+ *     HYPEN: 8,
+ * }
+ *
+ * dot: TokenType = CustomTokens.DOT; // 4
+ * eof: TokenType = CustomTokens.EOF; // 0
+ * ```
+ */
+export const Tokens = {
+  EOF: 0,
+  ERROR: 1,
+};
+
+/**
  * Tokenizer consumes the input and emit the tokens
  *
  * @param lexer Lexer scanner
@@ -60,7 +90,7 @@ type Tokenizer = (lexer: Lexer) => Tokenizer | void | null;
  */
 interface Token {
   /** @param type Token type */
-  type: number;
+  type: TokenType;
   /** @param value Token value (lexeme) */
   value: string;
   /** @param start Zero-based start position index in the input */
@@ -100,9 +130,9 @@ interface Lexer {
    *
    * Returned token contains it's type and it's value and start position in the input.
    *
-   * @param type Token type
+   * @param TokenType Token type
    */
-  emit(type: number): void;
+  emit(type: TokenType): void;
 
   /**
    * Ignore cuurent scanning, which means that the start position of the next scanning
@@ -171,7 +201,7 @@ const newLexer = (): Lexer =>
       this.position--;
     }
 
-    emit(type: number) {
+    emit(type: TokenType) {
       this.tokens.push({
         type,
         value: this.input.substring(this.start, this.position),

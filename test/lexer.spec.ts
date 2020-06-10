@@ -1,4 +1,9 @@
-import { newLexer, EOF } from "../src/lexer";
+import { newLexer, EOF, Tokens } from "../src/lexer";
+
+const TestTokens = {
+  ...Tokens,
+  DOT: 4,
+};
 
 describe("Lexer", () => {
   test("accept should accept a single character", () => {
@@ -34,14 +39,11 @@ describe("Lexer", () => {
   });
 
   test("emit should emit a token", () => {
-    const tokens = newLexer().lex("zxcv", (l) => {
+    const tokens = newLexer().lex(".", (l) => {
       l.next();
-      l.emit(1);
-      l.acceptRun("xc");
-      l.emit(2);
+      l.emit(TestTokens.DOT);
     });
-    expect(tokens[0]).toEqual({ start: 0, type: 1, value: "z" });
-    expect(tokens[1]).toEqual({ start: 1, type: 2, value: "xc" });
+    expect(tokens[0]).toEqual({ start: 0, type: TestTokens.DOT, value: "." });
   });
 
   test("ignore should omit a value", () => {
