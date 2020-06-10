@@ -46,6 +46,18 @@ describe("Lexer", () => {
     expect(tokens[0]).toEqual({ start: 0, type: TestTokens.DOT, value: "." });
   });
 
+  test("error should emit error token and stop emitting", () => {
+    const tokens = newLexer().lex("AB", (l) => {
+      l.next();
+      l.error("Error message");
+    });
+    expect(tokens[0]).toEqual({
+      start: 0,
+      type: TestTokens.ERROR,
+      value: "Error message",
+    });
+  });
+
   test("ignore should omit a value", () => {
     const tokens = newLexer().lex("cd", (l) => {
       l.next();

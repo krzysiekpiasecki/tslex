@@ -1,4 +1,3 @@
-import { Lexer } from "lexer";
 /**
  * Lexer analyzes the input string and emits tokens
  *
@@ -50,6 +49,7 @@ import { Lexer } from "lexer";
  * @TODO Change method {@link Lexer#lex} to Lexer#run
  * @TODO Implement? peekToken method
  * @TODO Remove class instance and use object literal in {@link newLexer}
+ * @TODO Remove position from Token Lexer
  */
 
 /**
@@ -147,6 +147,12 @@ interface Lexer {
   emit(type: TokenType): void;
 
   /**
+   * Emit a token with the type {@link Tokens.ERROR} and stop the lexing.
+   * @param message Error message as a token value
+   */
+  error(message: string): void;
+
+  /**
    * Ignore cuurent scanning, which means that the start position of the next scanning
    * will begin from the current lexer position.
    */
@@ -224,6 +230,15 @@ const newLexer = (): Lexer =>
 
     ignore() {
       this.start = this.position;
+    }
+
+    error(message: string): void {
+      this.tokens.push({
+        type: Tokens.ERROR,
+        value: message,
+        start: this.start,
+      });
+      this.position = this.input.length;
     }
 
     lex(input: string, tokenizer: Tokenizer): Token[] {
