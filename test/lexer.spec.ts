@@ -43,7 +43,7 @@ describe("Lexer", () => {
       l.next();
       l.emit(TestTokens.DOT);
     });
-    expect(tokens[0]).toEqual({ start: 0, type: TestTokens.DOT, value: "." });
+    expect(tokens[0]).toEqual({ type: TestTokens.DOT, value: "." });
   });
 
   test("error should emit error token and stop emitting", () => {
@@ -52,7 +52,6 @@ describe("Lexer", () => {
       l.error("Error message");
     });
     expect(tokens[0]).toEqual({
-      start: 0,
       type: TestTokens.ERROR,
       value: "Error message",
     });
@@ -81,9 +80,9 @@ describe("Lexer", () => {
         };
       };
     });
-    expect(tokens[0]).toEqual({ start: 0, type: 1, value: "AB" });
-    expect(tokens[1]).toEqual({ start: 2, type: 2, value: "     " });
-    expect(tokens[2]).toEqual({ start: 7, type: 3, value: "123456789" });
+    expect(tokens[0]).toEqual({ type: 1, value: "AB" });
+    expect(tokens[1]).toEqual({ type: 2, value: "     " });
+    expect(tokens[2]).toEqual({ type: 3, value: "123456789" });
   });
 
   test("next should consume and return a single character", () => {

@@ -40,7 +40,7 @@
  *     return dotTokenizer;
  * };
  *
- * const tokens = newLexer().lex("12.15.134", digitsTokenizer); // 12 -> . -> 15 -> . -> 134
+ * const tokens = newLexer().lex("12.15.", digitsTokenizer); // 12 -> . -> 15 -> . -> ERROR
  * ```
  *
  * @TODO Implement emitError function
@@ -96,7 +96,7 @@ export const Tokens = {
 type Tokenizer = (lexer: Lexer) => Tokenizer | void | null;
 
 /**
- * Represent a single token, which consists of the token type, value and start position.
+ * Represent a single token, which consists of the token type and its value
  *
  * Tokens are emitted by {@link Lexer#emit} method from {@link Tokenizer} functions.
  */
@@ -105,8 +105,6 @@ interface Token {
   type: TokenType;
   /** @param value Token value (lexeme) */
   value: string;
-  /** @param start Zero-based start position index in the input */
-  start: number;
 }
 
 interface Lexer {
@@ -223,7 +221,6 @@ const newLexer = (): Lexer =>
       this.tokens.push({
         type,
         value: this.input.substring(this.start, this.position),
-        start: this.start,
       });
       this.ignore();
     }
@@ -236,7 +233,6 @@ const newLexer = (): Lexer =>
       this.tokens.push({
         type: Tokens.ERROR,
         value: message,
-        start: this.start,
       });
       this.position = this.input.length;
     }

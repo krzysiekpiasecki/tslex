@@ -4,5 +4,5 @@
     ],
     "mode": "modules",
     "out": "docs",
-    "theme": "minimal"
+    "theme": "default"
 }
